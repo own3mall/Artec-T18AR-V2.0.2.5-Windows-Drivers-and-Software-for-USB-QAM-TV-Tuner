@@ -1,0 +1,120 @@
+;
+; INF file for Ultima ATSC-LG3304/MT2131 Digital TV Tuner USB 2.0 driver
+;
+; Copyright (c) 2006-2008, Ultima Electronics Corporation. All right reserved.
+;
+[Version]
+Signature	= "$CHICAGO$"
+Class		= Media
+ClassGUID	= {4d36e96c-e325-11ce-bfc1-08002be10318}
+Provider	= %Ultima%
+DriverVer	= 11/07/2007,1.1.2.9
+CatalogFile	= dacbdalga.cat
+
+[Manufacturer]
+%Ultima% = ULTIMA
+
+[ULTIMA]
+%BdaDevice.DeviceDesc% = BdaDevice.Device,USB\VID_05D8&PID_8117
+
+[DestinationDirs]
+BdaDevice.CopyDrivers = 12 
+
+[SourceDisksNames]
+1 = %INSTALLATION_DISK%, dacbdalga.inf,,
+
+[SourceDisksFiles]
+dacbdalga.sys = 1
+
+[ControlFlags]
+ExcludeFromSelect = *
+ExcludeFromSelect.NT = *
+
+[BdaDevice.Device.NT]
+Include    = ks.inf, kscaptur.inf, bda.inf
+Needs      = KS.Registration.NT,KSCAPTUR.Registration.NT,BDA.Registration.NT,bda.Installation.NT,bdacap.Installation.NT
+AddReg     = BdaDevice.AddReg
+CopyFiles  = BdaDevice.CopyDrivers
+
+[BdaDevice.Device.NT.Services]
+Addservice = DACBDALGA, 0x00000002, BdaDevice.AddService
+
+[BdaDevice.AddService]
+DisplayName    = %BdaDevice.DeviceDesc%
+ServiceType    = 1             
+StartType      = 3             
+ErrorControl   = 1             
+ServiceBinary  = %12%\dacbdalga.sys
+
+[BdaDevice.CopyDrivers]
+dacbdalga.sys
+
+[BdaDevice.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,dacbdalga.sys
+HKR,,OkToHibernate,3,01
+HKR,,PageOutWhenUnopened,3,01
+HKR,,DontSuspendIfStreamsAreRunning,3,01
+
+HKLM,%MediaCategories%\%RfTunerNode%,"Name",,"RF Tuner Node"
+HKLM,%MediaCategories%\%DemodulatorNode%,"Name",,"Demodulator Node"
+HKLM,%MediaCategories%\%AntennaInName%,"Name",,"Antenna In"
+
+[BdaDevice.Device.NT.Interfaces]
+AddInterface = %KSCATEGORY_BDA_RECEIVER_COMPONENT%,%KSSTRING_DgtCaptureFilter%,BdaDevice.DgtCapture,0
+AddInterface = %KSCATEGORY_BDA_NETWORK_TUNER%,%KSSTRING_DgtTunerFilter%,BdaDevice.DgtTuner,0
+AddInterface = %KSCATEGORY_VIDEO%,%KSSTRING_DgtWdmCaptureFilter%,BdaDevice.DgtWdmCapture,0
+AddInterface = %KSCATEGORY_CAPTURE%,%KSSTRING_DgtWdmCaptureFilter%,BdaDevice.DgtWdmCapture,0
+
+[BdaDevice.DgtWdmCapture]
+AddReg	= BdaDevice.DgtWdmCapture.AddReg
+
+[BdaDevice.DgtWdmCapture.AddReg]
+HKR,,CLSID,,%KSProxy.CLSID%
+HKR,,FriendlyName,,%DgtWdmCapture.FriendlyName%
+
+[BdaDevice.DgtTuner]
+AddReg	= BdaDevice.DgtTuner.AddReg
+
+[BdaDevice.DgtTuner.AddReg]
+HKR,,CLSID,,%KSProxy.CLSID%
+HKR,,FriendlyName,,%DgtTuner.FriendlyName%
+
+[BdaDevice.DgtCapture]
+AddReg	= BdaDevice.DgtCapture.AddReg
+
+[BdaDevice.DgtCapture.AddReg]
+HKR,,CLSID,,%KSProxy.CLSID%
+HKR,,FriendlyName,,%DgtCapture.FriendlyName%
+
+[Strings]
+Ultima                          = "Ultima Electronics Corporation"
+INSTALLATION_DISK               = "Ultima ARTEC T18AR Installation Disk"
+BdaDevice.DeviceDesc            = "Ultima ARTEC Digital TV Tuner"
+
+DgtTuner.FriendlyName           = "ARTEC Digital TV Tuner Filter"
+DgtCapture.FriendlyName         = "ARTEC Digital TV Capture Filter"
+DgtWdmCapture.FriendlyName      = "ARTEC Digital TV WDM Capture Filter"
+
+KSSTRING_DgtTunerFilter         = "{1397CDAC-3304-2131-010A-28D92593E67F}"
+KSSTRING_DgtCaptureFilter       = "{1397CDAC-3304-2131-110A-28D92593E67F}"
+KSSTRING_DgtWdmCaptureFilter    = "{1397CDAC-3304-2131-210A-28D92593E67F}"
+
+RfTunerNode        = "{1397CDAC-3304-2131-96CC-AB9BB24D8C6A}"
+DemodulatorNode    = "{1397CDAC-3304-2131-9CC8-00C04F7971E0}"
+AntennaInName      = "{1397CDAC-3304-2131-A20A-585095AC8BE9}"
+
+; Proxy GUIDs
+
+KSProxy.CLSID   = "{17CCA71B-ECD7-11D0-B908-00A0C9223196}"
+
+; Category GUIDs
+
+MediaCategories                   = "SYSTEM\CurrentControlSet\Control\MediaCategories"
+KSCATEGORY_CAPTURE                = "{65E8773D-8F56-11D0-A3B9-00A0C9223196}"
+KSCATEGORY_VIDEO                  = "{6994AD05-93EF-11D0-A3CC-00A0C9223196}"
+KSCATEGORY_BDA_RECEIVER_COMPONENT = "{FD0A5AF4-B41D-11d2-9C95-00C04F7971E0}"
+KSCATEGORY_BDA_NETWORK_TUNER      = "{71985F48-1CA1-11d3-9CC8-00C04F7971E0}"
+
+
+    

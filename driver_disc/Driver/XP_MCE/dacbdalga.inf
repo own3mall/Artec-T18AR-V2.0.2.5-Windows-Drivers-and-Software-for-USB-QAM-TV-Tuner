@@ -1,0 +1,192 @@
+;
+; INF file for Ultima ATSC-LG3304/MT2131 Digital TV Tuner USB 2.0 driver
+;
+; Copyright (c) 2006-2008, Ultima Electronics Corporation. All right reserved.
+;
+[Version]
+Signature	= "$CHICAGO$"
+Class		= Media
+ClassGUID	= {4d36e96c-e325-11ce-bfc1-08002be10318}
+Provider	= %Ultima%
+DriverVer	= 11/29/2007,1.0.3.0
+CatalogFile	= dacbdalga.cat
+
+[Manufacturer]
+%Ultima% = ULTIMA
+
+[ULTIMA]
+%BdaDevice.DeviceDesc% = BdaDevice.Device,USB\VID_05D8&PID_8117
+
+[DestinationDirs]
+BdaDevice.CopyDrivers = 10,System32\Drivers 
+
+[SourceDisksNames]
+1 = %INSTALLATION_DISK%, dacbdalga.inf,,
+
+[SourceDisksFiles]
+dacbdalga.sys = 1
+
+[ControlFlags]
+ExcludeFromSelect = *
+ExcludeFromSelect.NT = *
+
+[BdaDevice.Device.NT]
+Include    = ks.inf, kscaptur.inf, bda.inf, wdmaudio.inf
+Needs      = KS.Registration.NT,KSCAPTUR.Registration.NT,BDA.Registration.NT,bda.Installation.NT,bdacap.Installation.NT,wdmaudio.Registration.NT
+AddReg     = BdaDevice.AddReg
+CopyFiles  = BdaDevice.CopyDrivers
+
+[BdaDevice.Device.NT.Services]
+Addservice = DACBDALGA, 0x00000002, BdaDevice.AddService
+
+[BdaDevice.AddService]
+DisplayName    = %BdaDevice.DeviceDesc%
+ServiceType    = 1             
+StartType      = 3             
+ErrorControl   = 1             
+ServiceBinary  = %10%\System32\Drivers\dacbdalga.sys
+
+[BdaDevice.CopyDrivers]
+dacbdalga.sys
+
+[BdaDevice.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,dacbdalga.sys
+HKR,,OkToHibernate,3,01
+HKR,,PageOutWhenUnopened,3,01
+HKR,,DontSuspendIfStreamsAreRunning,3,01
+
+HKLM,%MediaCategories%\%RfTunerNode%,"Name",,"RF Tuner Node"
+HKLM,%MediaCategories%\%DemodulatorNode%,"Name",,"Demodulator Node"
+HKLM,%MediaCategories%\%AntennaInName%,"Name",,"Antenna In"
+HKLM,%MediaCategories%\%AnlgAudioInName%,"Name",,"Analog Audio In"
+HKLM,%MediaCategories%\%AnlgAudioOutName%,"Name",,"Analog Audio Out"
+HKLM,%MediaCategories%\%AnlgVirtualInName%,"Name",,"Analog Virtual In"
+HKLM,%MediaCategories%\%AnlgVirtualOutName%,"Name",,"Analog Virtual Out"
+HKLM,%MediaCategories%\%AnlgMpeg2PsOutName%,"Name",,"Analog Mpeg2 PS Out"
+
+[BdaDevice.Device.NT.Interfaces]
+AddInterface = %KSCATEGORY_VIDEO%,%KSSTRING_AnlgCaptureFilter%,BdaDevice.AnlgCapture,0
+AddInterface = %KSCATEGORY_CAPTURE%,%KSSTRING_AnlgCaptureFilter%,BdaDevice.AnlgCapture,0
+AddInterface = %KSCATEGORY_CROSSBAR%,%KSSTRING_AnlgXBarFilter%,BdaDevice.AnlgXBar,0
+AddInterface = %KSCATEGORY_TVAUDIO%,%KSSTRING_AnlgTVAudioFilter%,BdaDevice.AnlgTVAudio,0
+AddInterface = %KSCATEGORY_TVTUNER%,%KSSTRING_AnlgTunerFilter%,BdaDevice.AnlgTuner,0
+AddInterface = %KSCATEGORY_ENCODER%,%KSSTRING_AnlgEncoderFilter%,BdaDevice.AnlgEncoder,0
+AddInterface = %KSCATEGORY_MULTIPLEXER%,%KSSTRING_AnlgEncoderFilter%,BdaDevice.AnlgEncoder,0
+AddInterface = %KSCATEGORY_BDA_RECEIVER_COMPONENT%,%KSSTRING_DgtCaptureFilter%,BdaDevice.DgtCapture,0
+AddInterface = %KSCATEGORY_BDA_NETWORK_TUNER%,%KSSTRING_DgtTunerFilter%,BdaDevice.DgtTuner,0
+AddInterface = %KSCATEGORY_VIDEO%,%KSSTRING_DgtWdmCaptureFilter%,BdaDevice.DgtWdmCapture,0
+AddInterface = %KSCATEGORY_CAPTURE%,%KSSTRING_DgtWdmCaptureFilter%,BdaDevice.DgtWdmCapture,0
+
+[BdaDevice.AnlgEncoder]
+AddReg	= BdaDevice.AnlgEncoder.AddReg
+
+[BdaDevice.AnlgEncoder.AddReg]
+HKR,,CLSID,,%KSProxy.CLSID%
+HKR,,FriendlyName,,%AnlgEncoder.FriendlyName%
+HKR,Interfaces\{B43C4EEC-8C32-4791-9102-508ADA5EE8E7},,,
+
+[BdaDevice.DgtWdmCapture]
+AddReg	= BdaDevice.DgtWdmCapture.AddReg
+
+[BdaDevice.DgtWdmCapture.AddReg]
+HKR,,CLSID,,%KSProxy.CLSID%
+HKR,,FriendlyName,,%DgtWdmCapture.FriendlyName%
+
+[BdaDevice.AnlgCapture]
+AddReg	= BdaDevice.AnlgCapture.AddReg
+
+[BdaDevice.AnlgCapture.AddReg]
+HKR,,CLSID,,%KSProxy.CLSID%
+HKR,,FriendlyName,,%AnlgCapture.FriendlyName%
+
+[BdaDevice.AnlgXBar]
+AddReg	= BdaDevice.AnlgXBar.AddReg
+
+[BdaDevice.AnlgXBar.AddReg]
+HKR,,CLSID,,%KSXBar.CLSID%
+HKR,,FriendlyName,,%AnlgXBar.FriendlyName%
+
+[BdaDevice.AnlgTVAudio]
+AddReg	= BdaDevice.AnlgTVAudio.AddReg
+
+[BdaDevice.AnlgTVAudio.AddReg]
+HKR,,CLSID,,%KSTVAudio.CLSID%
+HKR,,FriendlyName,,%AnlgTVAudio.FriendlyName%
+
+[BdaDevice.AnlgTuner]
+AddReg	= BdaDevice.AnlgTuner.AddReg
+
+[BdaDevice.AnlgTuner.AddReg]
+HKR,,CLSID,,%KSTvTune.CLSID%
+HKR,,FriendlyName,,%AnlgTuner.FriendlyName%
+
+[BdaDevice.DgtTuner]
+AddReg	= BdaDevice.DgtTuner.AddReg
+
+[BdaDevice.DgtTuner.AddReg]
+HKR,,CLSID,,%KSProxy.CLSID%
+HKR,,FriendlyName,,%DgtTuner.FriendlyName%
+
+[BdaDevice.DgtCapture]
+AddReg	= BdaDevice.DgtCapture.AddReg
+
+[BdaDevice.DgtCapture.AddReg]
+HKR,,CLSID,,%KSProxy.CLSID%
+HKR,,FriendlyName,,%DgtCapture.FriendlyName%
+
+[Strings]
+Ultima                          = "Ultima Electronics Corporation"
+INSTALLATION_DISK               = "Ultima ARTEC T18AR Installation Disk"
+BdaDevice.DeviceDesc            = "Ultima ARTEC Digital TV Tuner"
+
+AnlgCapture.FriendlyName        = "Analog TV Capture Filter"
+AnlgXBar.FriendlyName           = "Analog TV CrossBar Filter"
+AnlgTVAudio.FriendlyName        = "Analog TV TV Audio Filter"
+AnlgTuner.FriendlyName          = "Analog TV Tuner Filter"
+AnlgEncoder.FriendlyName        = "Analog TV Encoder Filter"
+DgtTuner.FriendlyName           = "ARTEC Digital TV Tuner Filter"
+DgtCapture.FriendlyName         = "ARTEC Digital TV Capture Filter"
+DgtWdmCapture.FriendlyName      = "ARTEC Digital TV WDM Capture Filter"
+
+KSSTRING_DgtTunerFilter         = "{1397CDAC-3304-2131-010A-28D92593E67F}"
+KSSTRING_DgtCaptureFilter       = "{1397CDAC-3304-2131-110A-28D92593E67F}"
+KSSTRING_DgtWdmCaptureFilter    = "{1397CDAC-3304-2131-210A-28D92593E67F}"
+KSSTRING_AnlgTunerFilter        = "{1397CDAC-3304-2131-310A-28D92593E67F}"
+KSSTRING_AnlgTVAudioFilter      = "{1397CDAC-3304-2131-410A-28D92593E67F}"
+KSSTRING_AnlgXBarFilter         = "{1397CDAC-3304-2131-510A-28D92593E67F}"
+KSSTRING_AnlgCaptureFilter      = "{1397CDAC-3304-2131-610A-28D92593E67F}"
+KSSTRING_AnlgEncoderFilter      = "{1397CDAC-3304-2131-710A-28D92593E67F}"
+
+RfTunerNode        = "{1397CDAC-3304-2131-96CC-AB9BB24D8C6A}"
+DemodulatorNode    = "{1397CDAC-3304-2131-9CC8-00C04F7971E0}"
+AntennaInName      = "{1397CDAC-3304-2131-A20A-585095AC8BE9}"
+AnlgAudioInName    = "{1397CDAC-3304-2131-B20A-585095AC8BE9}"
+AnlgAudioOutName   = "{1397CDAC-3304-2131-C20A-585095AC8BE9}"
+AnlgVirtualInName  = "{1397CDAC-3304-2131-D20A-585095AC8BE9}"
+AnlgVirtualOutName = "{1397CDAC-3304-2131-E20A-585095AC8BE9}"
+AnlgMpeg2PsOutName = "{1397CDAC-3304-2131-F20A-585095AC8BE9}"
+
+; Proxy GUIDs
+
+KSProxy.CLSID   = "{17CCA71B-ECD7-11D0-B908-00A0C9223196}"
+KSXBar.CLSID    = "{71F96460-78F3-11d0-A18C-00A0C9118956}"
+KSTVAudio.CLSID = "{71F96462-78F3-11d0-A18C-00A0C9118956}"
+KSTvTune.CLSID  = "{266EEE40-6C63-11cf-8A03-00AA006ECB65}"
+
+; Category GUIDs
+
+MediaCategories                   = "SYSTEM\CurrentControlSet\Control\MediaCategories"
+KSCATEGORY_CAPTURE                = "{65E8773D-8F56-11D0-A3B9-00A0C9223196}"
+KSCATEGORY_VIDEO                  = "{6994AD05-93EF-11D0-A3CC-00A0C9223196}"
+KSCATEGORY_AUDIO                  = "{6994AD04-93EF-11D0-A3CC-00A0C9223196}"
+KSCATEGORY_CROSSBAR               = "{a799a801-a46d-11d0-a18c-00a02401dcd4}"
+KSCATEGORY_TVAUDIO                = "{a799a802-a46d-11d0-a18c-00a02401dcd4}"
+KSCATEGORY_TVTUNER                = "{a799a800-a46d-11d0-a18c-00a02401dcd4}"
+KSCATEGORY_ENCODER                = "{19689BF6-C384-48fd-AD51-90E58C79F70B}"
+KSCATEGORY_MULTIPLEXER            = "{7A5DE1D3-01A1-452c-B481-4FA2B96271E8}"
+KSCATEGORY_BDA_RECEIVER_COMPONENT = "{FD0A5AF4-B41D-11d2-9C95-00C04F7971E0}"
+KSCATEGORY_BDA_NETWORK_TUNER      = "{71985F48-1CA1-11d3-9CC8-00C04F7971E0}"
+
+
+    
