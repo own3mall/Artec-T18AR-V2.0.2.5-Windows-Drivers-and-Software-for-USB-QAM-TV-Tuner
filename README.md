@@ -10,7 +10,7 @@ I hope these files help someone out there!
 
 I wasn't able to get the ArtecMedia Digital TV Player application to work properly in Windows 7 x64.  I could watch TV, but there wasn't any sound despite the sound not being muted and at full volume.
 
-I did get Windows Media Center to work propertly (sound and picture) with this HD TV USB adapter though.  You may need to un-plug and re-plug in this TV tuner adapter to get it work properly at times.  If Windows Media Center is unable to scan TV channels, unplug the USB adapter, plug it back in, and then try scanning for channels again.
+I did get Windows Media Center to work properly (sound and picture) with this HD TV USB adapter though.  You may need to unplug and replug-in this TV tuner adapter to get it work properly at times.  If Windows Media Center is unable to scan TV channels, unplug the USB adapter, plug it back in, and then try scanning for channels again.
 
 I did run into a problem with Media Center downloading TV files, and I fixed it using this information:
 
@@ -35,6 +35,14 @@ Anyway, there are a few posts around the Web that tell you to run a command line
 
 This solution is the only one that worked across reboots and allowed me to go and reset the TV signal without hassle. Please leave a comment if something else worked for you.
 ```
+
+### Screenshot
+
+<a href='https://serv1.dragndropz.com/user_images/2021_04_09/2796_Eq1tzM_artec_t18ar_windows_drivers_and_software.png' target='_blank'><img src='https://serv1.dragndropz.com/user_images/2021_04_09/thumbs/2796_j8cmPF_artec_t18ar_windows_drivers_and_software.png' alt='Image Hosted by DragNDropz www.dragndropz.com' title='Image Hosted by DragNDropz www.dragndropz.com'></a>
+
+### Video
+
+https://www.youtube.com/watch?v=76DIrHG9g04
 
 ## Linux
 
