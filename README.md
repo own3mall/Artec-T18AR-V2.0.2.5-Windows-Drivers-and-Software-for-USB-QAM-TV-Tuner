@@ -40,6 +40,8 @@ This solution is the only one that worked across reboots and allowed me to go an
 
 <a href='https://serv1.dragndropz.com/user_images/2021_04_09/2796_Eq1tzM_artec_t18ar_windows_drivers_and_software.png' target='_blank'><img src='https://serv1.dragndropz.com/user_images/2021_04_09/thumbs/2796_j8cmPF_artec_t18ar_windows_drivers_and_software.png' alt='Image Hosted by DragNDropz www.dragndropz.com' title='Image Hosted by DragNDropz www.dragndropz.com'></a>
 
+https://serv1.dragndropz.com/user_images/2021_04_09/2796_Eq1tzM_artec_t18ar_windows_drivers_and_software.png
+
 ### Video
 
 https://www.youtube.com/watch?v=76DIrHG9g04
